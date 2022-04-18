@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: back-configmap
+data:
+  databasehost: database-service
+  

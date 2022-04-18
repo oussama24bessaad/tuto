@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: back-deployment
+  labels:
+    app: back-deployment 
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: back-deployment
+  template:
+    metadata:
+      labels:
+        app: back-deployment
+    spec:
+      containers:
+      - name: back-deployment
+        image: mehdijebali/crud-back:latest
+        ports:
+        - name: http-back 
+          containerPort: 8080
+        env:
+        - name: DATABASE_HOST
+          valueFrom:
+            configMapKeyRef:
+              name: back-configmap
+              key: databasehost

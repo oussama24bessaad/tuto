@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: database-configmap
+data:
+  database: testdb
+  user: spring_user

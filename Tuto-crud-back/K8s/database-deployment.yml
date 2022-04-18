@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: database-deployment
+  labels:
+    app: database-deployment 
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: database-deployment
+  template:
+    metadata:
+      labels:
+        app: database-deployment
+    spec:
+      containers:
+      - name: database-deployment
+        image: mysql:latest
+        env:
+        - name: MYSQL_DATABASE
+          valueFrom:
+            configMapKeyRef:
+              name: database-configmap
+              key: database
+        - name: MYSQL_USER
+          valueFrom:
+            configMapKeyRef:
+              name: database-configmap
+              key: user
+        - name: MYSQL_ROOT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: database-secret
+              key: rootpassword 
+        - name: MYSQL_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: database-secret
+              key: dbpassword 
+        volumeMounts:
+        - name: database-persistent-storage
+          mountPath: /var/lib/mysql
+      volumes:
+      - name: database-persistent-storage
+        persistentVolumeClaim:
+          claimName: database-pv-claim
+                                                            
