@@ -54,19 +54,19 @@ pipeline {
                         }
                   }
             }
-             stage('Release Docker Image Back') {
-                  environment {
-                        registryCredential = "dockerhub_credentials"
-                  }
-                  steps {
-                        echo '**** Build Docker Image Back ****'
-                        script{
-                              dockerImageback = docker.build dockerimagenameback
-                              docker.withRegistry( 'https://registry.hub.docker.com', registryCredential ) 
-                              {dockerImageback.push("latest")}
-                        }
-                  }
-            }
+//              stage('Release Docker Image Back') {
+//                   environment {
+//                         registryCredential = "dockerhub_credentials"
+//                   }
+//                   steps {
+//                         echo '**** Build Docker Image Back ****'
+//                         script{
+//                               dockerImageback = docker.build dockerimagenameback
+//                               docker.withRegistry( 'https://registry.hub.docker.com', registryCredential ) 
+//                               {dockerImageback.push("latest")}
+//                         }
+//                   }
+//             }
 //             stage('Deploy to k8s') {
 //                   steps {
 //                         echo '**** Deploy Application ****'
